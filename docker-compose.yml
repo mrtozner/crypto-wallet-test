@@ -1,0 +1,28 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./
+      dockerfile: ./backend/Dockerfile
+    volumes:
+      - ./backend/:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 80:80
+  mongo:
+    image: mongo:4.4.3-bionic
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - data:/data/db
+  redis:
+    image: redis:6.2.6-alpine
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-data:/var/lib/redis
+volumes:
+  data:
+  redis-data:
